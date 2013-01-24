@@ -8,7 +8,7 @@ These tools work best on Mac OS X and Linux.
 Requirements
 ------------
 
-* Python 2.6+
+*   Python 2.6+
 
 Installation
 ------------
@@ -37,24 +37,24 @@ To list available components:
 Usage
 -----
 
-* `beep.py`
-  
-  This script makes one or more system default beep sounds.
-  
-  Usage:
-  
-      $ beep
-  
-  or
-  
-      $ beep 5
+*   `beep.py`
+    
+    This script makes one or more system default beep sounds.
+    
+    Usage:
+    
+        $ beep
+    
+    or
+    
+        $ beep 5
 
-* `cate.py`
-  
-  This script prints out the file content in an escaped format to avoid triggering control characters like backspaces, beeps, line feed, carriage return, etc. Also useful to observe unicode files.
-  
-  Usage:
-  
-      $ cate /bin/ln
+*   `cate.py`
+    
+    This script prints out the file content in an escaped format to avoid triggering control characters like backspaces, beeps, line feed, carriage return, etc. Also useful to observe unicode files.
+    
+    Usage:
+    
+        $ cate /bin/ln
 
-* (MORE TO COME)
+*   (MORE TO COME)
