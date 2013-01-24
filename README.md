@@ -15,24 +15,24 @@ Installation
 
 To install all components:
 
-  $ sudo python install.py all
+    $ sudo python install.py all
 
 To install specified components:
 
-  $ sudo python install.py beep cate
+    $ sudo python install.py beep cate
 
 To uninstall:
 
-  $ sudo python install.py -u all
-  $ sudo python install.py -u beep cate
+    $ sudo python install.py -u all
+    $ sudo python install.py -u beep cate
 
 To see help:
 
-  $ python install.py -h
+    $ python install.py -h
 
 To list available components:
 
-  $ python install.py -l
+    $ python install.py -l
 
 Usage
 -----
@@ -43,11 +43,11 @@ Usage
   
   Usage:
   
-    $ beep
+      $ beep
   
   or
   
-    $ beep 5
+      $ beep 5
 
 * `cate.py`
   
@@ -55,6 +55,6 @@ Usage
   
   Usage:
   
-    $ cate /bin/ln
+      $ cate /bin/ln
 
 * (MORE TO COME)
