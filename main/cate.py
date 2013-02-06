@@ -4,13 +4,13 @@
 import sys
 
 def cat(filepath):
-	with open(filepath, "r") as source_file:
-		for line in source_file:
-			print repr(line)
+    with open(filepath, "r") as source_file:
+        for line in source_file:
+            print repr(line)
 
 def main():
-	filepath = sys.argv[1]
-	cat(filepath)
+    for filepath in sys.argv[1:]:
+        cat(filepath)
 
 if __name__ == "__main__":
-	main()
+    main()
