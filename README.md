@@ -57,4 +57,16 @@ Usage
     
         $ cate /bin/ln
 
+*   `table2csv.py`
+    
+    This script converts a single-table HTML file into a Comma Separated Values (CSV) file. A single-table HTML file can be opened directly by Microsoft Excel and thus is used by some service providers (e.g. http://www.10086.cn) to let you download large data in an Excel-compatible format.
+    
+    Usage:
+    
+        $ table2csv "data.html" "data.csv"
+    
+    If you don't specify the first parameter, the script will read the input from `stdin`. If you don't specify the second parameter, the script will write the output to `stdout`. Example:
+    
+        $ cat "data.html" | iconv -f "gbk" -t "utf-8" | table2csv > "data.csv"
+
 *   (MORE TO COME)
