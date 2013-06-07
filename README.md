@@ -26,16 +26,16 @@ To uninstall:
     $ sudo python install.py -u all
     $ sudo python install.py -u beep cate
 
-To see help:
-
-    $ python install.py -h
-
 To list available components:
 
     $ python install.py -l
 
-Usage
------
+To see help:
+
+    $ python install.py -h
+
+Components
+----------
 
 *   `beep.py`
     
