@@ -71,7 +71,7 @@ Usage
 
 *   `reveal.sh`
     
-    This script shows a specified file in the Finder on Mac OS X. Note that it uses AppleScript so it's not possible to run on other platforms.
+    This script shows a specified file in the Finder on Mac OS X. Note that AppleScript is used internally so it's not possible to run this script on other platforms.
     
     Usage:
     
