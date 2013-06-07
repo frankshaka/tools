@@ -69,4 +69,14 @@ Usage
     
         $ cat "data.html" | iconv -f "gbk" -t "utf-8" | table2csv > "data.csv"
 
+*   `reveal.sh`
+    
+    This script shows a specified file in the Finder on Mac OS X. Note that it uses AppleScript so it's not possible to run on other platforms.
+    
+    Usage:
+    
+        $ reveal /bin/ln
+    
+    This script comes with a companion `misc/Show In Finder.launch` - an external tool launch configuration for Eclipse developers who wish to reveal the selected resource in Finder.
+
 *   (MORE TO COME)

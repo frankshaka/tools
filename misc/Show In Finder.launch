@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This is a launch configuration for Eclipse to reveal a selected resource in Finder. -->
+<!-- Usage: Import this file as a Run/Debug Launch Configuration and run it as an External Tool. -->
+<launchConfiguration type="org.eclipse.ui.externaltools.ProgramLaunchConfigurationType">
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="/usr/local/bin/reveal"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="${resource_loc}"/>
+</launchConfiguration>
