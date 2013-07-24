@@ -6,29 +6,32 @@ import os
 import os.path
 
 def help(exit=1):
-    print "Usage: sudo python %s [OPTIONS] [COMPONENTS]" % sys.argv[0]
-    print "Available options:"
-    print "  -i  - Install (default if no options provided)"
-    print "  -u  - Uninstall"
-    print "  -l  - List all available components"
-    print "  -h  - Print this help and exit"
+    print "Utility to install or uninstall package components."
+    print ""
+    print "Usage: sudo python %s COMMAND [COMPONENTS]" % sys.argv[0]
+    print ""
+    print "Available commands:"
+    print "    i   install     Install components (`sudo` required)"
+    print "    u   uninstall   Uninstall components (`sudo` required)"
+    print "    l   list        List all available components"
+    print "    h   help        Print this help and exit"
+    print ""
+    print "Available components:"
+    print "Type `python install.py list` for a list of all available components."
+    print ""
     sys.exit(exit)
 
 def check_root():
     if os.getuid() != 0:
-        print >> sys.stderr, "This script must be run as root!"
-        print >> sys.stderr, ""
-        help(2)
+        print >> sys.stderr, "This command must be run as root!"
+        print >> sys.stderr, "Type `python %s help` for more information." % sys.argv[0]
+        sys.exit(2)
 
 args = sys.argv[1:]
 if not args:
     help()
 
-if args[0].startswith("-"):
-    command = args[0]
-    args.pop(0)
-else:
-    command = "-i"
+command = args.pop(0)
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 main_dir = os.path.join(root_dir, "main")
@@ -100,14 +103,16 @@ def install(names):
     for name in names:
         _install(name)
 
-if command == "-h":
+if command == "h" or command == "help":
     help()
-elif command == "-l":
+elif command == "l" or command == "list":
     list_components()
-elif command == "-u":
+elif command == "u" or command == "uninstall":
     uninstall(args)
-elif command == "-i":
+elif command == "i" or command == "install":
     install(args)
 else:
     print >> sys.stderr, "No such command: " + command
-    help(3)
+    print >> sys.stderr, "Type `python %s help` for more information." % sys.argv[0]
+    sys.exit(3)
+
