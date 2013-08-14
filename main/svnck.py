@@ -160,6 +160,13 @@ class Stage(object):
 	def _on_unstage(self, index):
 		sys.stdout.write("Unstaged: %s\n" % self.files[index]["path"])
 
+	def diff(self, indexes):
+		if "all" in indexes:
+			to_diff = [self.files[index]["path"] for index in sorted(self.files.keys())]
+		else:
+			to_diff = [self.files[index]["path"] for index in indexes if index in self.files]
+		run("svn", "diff", *to_diff, noraise=True)
+
 	def commit(self, all=False):
 		if all:
 			self.staged = self.staged + self.unstaged
@@ -179,11 +186,11 @@ class Stage(object):
 		message = sys.stdin.readline()[:-1]
 		to_commit = [self.files[index]["path"] for index in self.staged]
 		if message:
-			sys.stdout.write("Commit Message: %s\n" % message)
+			sys.stdout.write("Committing with message: '%s' ....\n" % message)
 			sys.stdout.flush()
 			run("svn", "commit", "-m", message, *to_commit, noraise=True)
 		else:
-			sys.stdout.write("Will try running 'svn commit' without commit message....\n")
+			sys.stdout.write("Opening default commit message editor....\n")
 			sys.stdout.flush()
 			run("svn", "commit", *to_commit, noraise=True)
 		self.refresh()
@@ -249,7 +256,7 @@ def main():
 
 		while 1:
 			stage.print_content()
-			sys.stdout.write("Command: q=quit, s=stage, u=unstage, c=commit, a=add, r=revert, d=delete, f=refresh\n")
+			sys.stdout.write("Command: q=quit, s=stage, u=unstage, c=commit, d=diff, a=add, r=revert, f=refresh, del=delete\n")
 			command_handled = False
 			while not command_handled:
 				sys.stdout.write("> ")
@@ -295,6 +302,11 @@ def main():
 					else:
 						command_handled = stage.revert(expand_indexes(args)) is not False
 				elif command == "d":
+					if not args:
+						sys.stdout.write("Usage: d [all] [INDEX1] [INDEX2-INDEX3]...\n")
+					else:
+						command_handled = stage.diff(expand_indexes(args)) is not False
+				elif command == "del":
 					# Delete files:
 					if not args:
 						sys.stdout.write("Usage: d [all] [INDEX1] [INDEX2-INDEX3]...\n")
