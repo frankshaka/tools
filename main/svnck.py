@@ -84,7 +84,7 @@ class Stage(object):
 			sys.stdout.write("| (None)\n")
 		else:
 			for index in self.unstaged:
-				sys.stdout.write("| %(status)s %(path)s [%(index)s]\n" % self.files[index])
+				sys.stdout.write("| %(status)s [%(index)5s] %(path)s [%(index)s]\n" % self.files[index])
 		sys.stdout.write("+-----------------------------------------------------------\n")
 		sys.stdout.write("\n")
 
@@ -95,7 +95,7 @@ class Stage(object):
 			sys.stdout.write("| (None)\n")
 		else:
 			for index in self.staged:
-				sys.stdout.write("| %(status)s %(path)s [%(index)s]\n" % self.files[index])
+				sys.stdout.write("| %(status)s [%(index)5s] %(path)s [%(index)s]\n" % self.files[index])
 		sys.stdout.write("+-----------------------------------------------------------\n")
 		sys.stdout.write("\n")
 
