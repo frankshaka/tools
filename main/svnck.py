@@ -125,6 +125,8 @@ class Stage(object):
 				self.staged.append(f["index"])
 			else:
 				self.unstaged.append(f["index"])
+		self.unstaged.sort()
+		self.staged.sort()
 
 	def _move_elements(self, these, from_list, to_list, on_move=None):
 		i = 0
