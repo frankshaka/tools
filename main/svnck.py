@@ -134,11 +134,9 @@ class Stage(object):
 			self.staged.sort(self._cmp_keys)
 
 	def _cmp_keys(self, k1, k2):
-		if len(k1) > len(k2):
-			return 1
-		if len(k1) < len(k2):
-			return -1
-		return cmp(k1, k2)
+		if len(k1) == len(k2):
+			return cmp(k1, k2)
+		return len(k1) - len(k2)
 
 	def _move_elements(self, these, from_list, to_list, on_move=None):
 		i = 0
