@@ -298,9 +298,6 @@ def main():
 						sys.stdout.write("No files staged. Use 's' command to mark files to be commited with.\n")
 					else:
 						command_handled = stage.commit(all="all" in args) is not False
-						if not stage.unstaged and not stage.staged:
-							sys.stdout.write("All modifications have been commited.\n")
-							return
 				elif command == "a":
 					# Add files to version control:
 					if not args:
@@ -324,13 +321,13 @@ def main():
 						sys.stdout.write("Usage: d [all] [INDEX1] [INDEX2-INDEX3]...\n")
 					else:
 						command_handled = stage.delete(expand_indexes(args)) is not False
-						if not stage.unstaged and not stage.staged:
-							sys.stdout.write("All modifications have been deleted.\n")
-							return
 				elif command == "f":
 					# Refresh staging status:
 					stage.refresh()
 					command_handled = True
+				if not stage.unstaged and not stage.staged:
+					sys.stdout.write("No modifications now.\n")
+					return
 	except ExecutionException, e:
 		sys.stderr.write(e.result.output)
 	except KeyboardInterrupt:
