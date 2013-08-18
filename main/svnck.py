@@ -125,8 +125,20 @@ class Stage(object):
 				self.staged.append(f["index"])
 			else:
 				self.unstaged.append(f["index"])
-		self.unstaged.sort()
-		self.staged.sort()
+		self._sort()
+
+	def _sort(self):
+		if self.unstaged:
+			self.unstaged.sort(self._cmp_keys)
+		if self.staged:
+			self.staged.sort(self._cmp_keys)
+
+	def _cmp_keys(self, k1, k2):
+		if len(k1) > len(k2):
+			return 1
+		if len(k1) < len(k2):
+			return -1
+		return cmp(k1, k2)
 
 	def _move_elements(self, these, from_list, to_list, on_move=None):
 		i = 0
@@ -146,7 +158,7 @@ class Stage(object):
 		else:
 			to_stage = indexes
 		self._move_elements(to_stage, self.unstaged, self.staged, on_move=self._on_stage)
-		self.staged.sort()
+		self._sort()
 
 	def _on_stage(self, index):
 		sys.stdout.write("Staged: %s\n" % self.files[index]["path"])
@@ -157,14 +169,14 @@ class Stage(object):
 		else:
 			to_unstage = indexes
 		self._move_elements(to_unstage, self.staged, self.unstaged, on_move=self._on_unstage)
-		self.unstaged.sort()
+		self._sort()
 
 	def _on_unstage(self, index):
 		sys.stdout.write("Unstaged: %s\n" % self.files[index]["path"])
 
 	def diff(self, indexes):
 		if "all" in indexes:
-			to_diff = [self.files[index]["path"] for index in sorted(self.files.keys())]
+			to_diff = [self.files[index]["path"] for index in sorted(self.files.keys(), self._cmp_keys)]
 		else:
 			to_diff = [self.files[index]["path"] for index in indexes if index in self.files]
 		run("svn", "diff", *to_diff, noraise=True)
@@ -173,7 +185,7 @@ class Stage(object):
 		if all:
 			self.staged = self.staged + self.unstaged
 			self.unstaged = []
-			self.staged.sort()
+			self._sort()
 			to_add = [self.files[index]["path"] for index in self.staged if self.files[index]["status"].startswith("?")]
 			if to_add:
 				sys.stdout.write("Adding files to version control....\n")
