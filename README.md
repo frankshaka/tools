@@ -95,4 +95,19 @@ Components
         $ cd ~/myworkspace/svnproject1
         $ svnck
 
+*   `dgen.py`
+
+    This script generates MD5 and/or SHA1 digest/checksum for specified files and stores the digest into respective digest files with the original file name suffixed with ".md5" or ".sha1". It also provides a "--verify" argument to verify that the saved digest equals the generated one.
+
+    This script calls `openssl` program for digest generation.
+
+    Usage:
+
+        $ dgen /path/to/project/mywork.txt
+        $ ls /path/to/project/
+        mywork.txt   mywork.txt.md5   mywork.txt.sha1
+        $ dgen --verify /path/to/project/mywork.txt
+        /path/to/project/mywork.txt: MD5 Valid
+        /path/to/project/mywork.txt: SHA1 Valid
+
 *   (MORE TO COME)
