@@ -252,7 +252,11 @@ class Stage(object):
 		if ans != "yes":
 			sys.stdout.write("Aborted.\n")
 			return False
-		run("rm", *to_delete, noraise=True)
+		for file_path in to_delete:
+			if os.path.isdir(file_path):
+				run("rm", "-r", file_path, noraise=True)
+			else:
+				run("rm", file_path, noraise=True)
 		self.refresh()
 
 
