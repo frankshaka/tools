@@ -253,10 +253,26 @@ class Stage(object):
 			sys.stdout.write("Aborted.\n")
 			return False
 		for file_path in to_delete:
-			if os.path.isdir(file_path):
-				run("rm", "-r", file_path, noraise=True)
-			else:
-				run("rm", file_path, noraise=True)
+			run("rm", "-rv", file_path, noraise=True)
+		self.refresh()
+
+	def copy(self, indexes):
+		if "all" in indexes:
+			to_copy = [self.files[index]["path"] for index in self.files if not self.files[index]["status"].startswith("D")]
+		else:
+			to_copy = [self.files[index]["path"] for index in indexes if index in self.files and not self.files[index]["status"].startswith("D")]
+		if not to_copy:
+			sys.stdout.write("Deleted files can not be copied.\n")
+			return False
+		for path in to_copy:
+			sys.stdout.write("    %s\n" % path)
+		sys.stdout.write("Enter the base path to which these files will be copied: \n")
+		base = sys.stdin.readline()[:-1]
+		if not base:
+			sys.stdout.write("Aborted.\n")
+			return False
+		for file_path in to_copy:
+			run("cp", "-Rpv", file_path, os.path.join(base, file_path), noraise=True)
 		self.refresh()
 
 
@@ -272,7 +288,7 @@ def main():
 
 		while 1:
 			stage.print_content()
-			sys.stdout.write("Command: q=quit, s=stage, u=unstage, c=commit, d=diff, a=add, r=revert, f=refresh, del=delete\n")
+			sys.stdout.write("Command: q=quit, s=stage, u=unstage, c=commit, d=diff, a=add, r=revert, f=refresh, del=delete, cp=copy\n")
 			command_handled = False
 			while not command_handled:
 				sys.stdout.write("> ")
@@ -322,9 +338,15 @@ def main():
 				elif command == "del":
 					# Delete files:
 					if not args:
-						sys.stdout.write("Usage: d [all] [INDEX1] [INDEX2-INDEX3]...\n")
+						sys.stdout.write("Usage: del [all] [INDEX1] [INDEX2-INDEX3]...\n")
 					else:
 						command_handled = stage.delete(expand_indexes(args)) is not False
+				elif command == "cp":
+					# Copy files:
+					if not args:
+						sys.stdout.write("Usage: cp [all] [INDEX1] [INDEX2-INDEX3]...\n")
+					else:
+						command_handled = stage.copy(expand_indexes(args)) is not False
 				elif command == "f":
 					# Refresh staging status:
 					stage.refresh()
