@@ -120,4 +120,24 @@ Components
         /path/to/project/mywork.txt: MD5 Valid
         /path/to/project/mywork.txt: SHA1 Valid
 
+*   `vm.sh`
+
+    This script simplifies frequently-used commands of VBoxManage, a command line interface provided by VirtualBox, a virtual machine management tool.
+
+    Usage:
+
+        $ vm list
+        ==============  VMs ==============
+        "ubuntu-server" {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}
+        "windows7-x64" {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}
+        ==============  Running VMs  ==============
+        "windows7-x64" {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}
+        $ vm start ubuntu-server
+        Waiting for VM "ubuntu-server" to power on...
+        VM "ubuntu-server" has been successfully started.
+        $ vm state ubuntu-server
+        State:           running (since 2014-01-08T15:26:58.782000000)
+        $ vm stop ubuntu-server
+        0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+
 *   (MORE TO COME)
