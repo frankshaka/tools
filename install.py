@@ -21,12 +21,6 @@ def help(exit=1):
     print ""
     sys.exit(exit)
 
-def check_root():
-    if os.getuid() != 0:
-        print >> sys.stderr, "This command must be run as root!"
-        print >> sys.stderr, "Type `python %s help` for more information." % sys.argv[0]
-        sys.exit(2)
-
 args = sys.argv[1:]
 if not args:
     help()
@@ -91,14 +85,12 @@ def _install(name):
     print "Component '%s' installed." % name
 
 def uninstall(names):
-    check_root()
     if "all" in names:
         names = iter_components()
     for name in names:
         _uninstall(name)
 
 def install(names):
-    check_root()
     if "all" in names:
         names = iter_components()
     for name in names:
