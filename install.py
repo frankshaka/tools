@@ -35,7 +35,8 @@ command = args.pop(0)
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 main_dir = os.path.join(root_dir, "main")
-install_dir = "/usr/local/bin"
+install_dir = os.getenv("TOOLS_INST_DIR") or "/usr/local/bin"
+install_dir = os.path.join(os.getcwd(), os.path.expanduser(install_dir))
 
 def to_source_path(name, source_dir=main_dir):
     for suffix in [".py", ".sh"]:
