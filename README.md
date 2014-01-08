@@ -86,6 +86,16 @@ Components
 
     This script comes with a companion `misc/Show In Finder.launch` - an external tool launch configuration for Eclipse developers who wish to reveal the selected resource in Finder.
 
+*   `jars.py`
+
+    This script packs up files under specified directories into JAR files with directory names.
+
+    Usage:
+
+        $ jars /opt/project/release-v1.0
+        $ ls /opt/project
+        release-v1.0  release-v1.0.jar
+
 *   `svnck.py`
 
     This script prompts an interactive console for Subversion users. The main feature is that it provides a Git-like 'staging area' in the runtime, so that committers can choose easily which files to be committed without messing up one commit with bulk changes made for different issues. Another benefit of this script is the ability to specify paths using indexed numbers, which removes the pain of tabbing/copying/pasting long path names in the command line environment. Other features include shortcuts to 'svn add', 'svn revert' and deleting un-version-controlled files.
